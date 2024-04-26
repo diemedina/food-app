@@ -1,0 +1,93 @@
+
+& .recipe {
+  padding: 12px 12px 72px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  & header {
+    display: flex;
+    justify-content: space-between;
+
+    & h2 {
+      line-height: 44px;
+      font-size: 24px;
+      margin: 0;
+      font-weight: bold;
+    }
+
+    & a {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: #F1E6E0;
+      padding: 8px;
+      border-radius: 8px;
+      border: none;
+      height: 44px;
+      color: #2E2364;
+      text-decoration: none;
+    }
+  }
+
+  & .listRecipe {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px 0px;
+
+    & .listRecipe__item {
+      display: grid;
+      grid-template-columns: 44px 1fr 32px;
+      align-items: center;
+      gap: 12px;
+      
+      & span:first-child {
+        background: #F1E6E0;
+        color: #FF8F97;
+        border-radius: 4px;
+        width: 44px;
+        height: 44px;
+        font-size: 36px;
+        padding: 4px;
+      }
+
+      & .listRecipe__item__actions {
+        display: flex;
+        flex-direction: row;
+        gap: 4px;
+
+        & button {
+          width: 32px;
+          height: 32px;
+          font-size: 28px;
+          padding: 2px;
+          border: none;
+          background-color: #F1E6E0;
+          color: #FF8F97;
+          border-radius: 4px;
+
+          &.active {
+            background: #FF8F97;
+            color: #F1E6E0;
+          }
+        }
+      }
+
+      & div {
+        display: flex;
+        flex-direction: column;
+
+        & strong {
+          font-weight: bold;
+        }
+
+        & small {
+          font-weight: lighter;
+          font-size: 12px;
+        }
+      }
+      
+    }
+  }
+}

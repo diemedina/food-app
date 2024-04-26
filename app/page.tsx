@@ -1,95 +1,134 @@
-import Image from "next/image";
 import styles from "./page.module.css";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main className={styles.home}>
+      <header className={styles.header}>
+        <h2>Hola, Diego</h2>
+        <Link href="/cart">
+          <span className="material-symbols-outlined">shopping_cart</span>
+        </Link>
+      </header>
+
+      <article className={styles.today}>
+        <span className="material-symbols-outlined">calendar_month</span>
+        <h3>Calendario</h3>
+        <section className={styles.today__section}>
+          <div className={styles.today__section__item}>
+            <span className="material-symbols-outlined">restaurant</span>
+            <div>
+              <strong>Almuerzo</strong>
+              <h4>Milanesas de soja con capresse</h4>
+            </div>
+          </div>
+          <hr />
+          <div className={styles.today__section__item}>
+            <span className="material-symbols-outlined">restaurant</span>
+            <div>
+              <strong>Cena</strong>
+              <h4>Guiso de lentejas</h4>
+            </div>
+          </div>
+        </section>
+      </article>
+
+      <section className={styles.recipe}>
+        <h3>Recetas</h3>
+        <div className={styles.listRecipe}>
+          <article className={styles.listRecipe__item}>
+            <span className="material-symbols-outlined">menu_book</span>
+            <div>
+              <strong>Rapiditas con palta/atun</strong>
+              <small>5 Ingredientes</small>
+            </div>
+            <span className="material-symbols-outlined">expand_less</span>
+            <div className={styles.listRecipe__item__description}>
+              <ul>
+                <li className={styles.active}>
+                  <i className="material-symbols-outlined">check</i> Rapiditas
+                </li>
+                <li>
+                  <i className="material-symbols-outlined">horizontal_rule</i> Tomate
+                </li>
+                <li>
+                  <i className="material-symbols-outlined">horizontal_rule</i> Cebolla
+                </li>
+                <li className={styles.active}>
+                  <i className="material-symbols-outlined">check</i> Palta
+                </li>
+                <li className={styles.active}>
+                  <i className="material-symbols-outlined">check</i> Queso Crema
+                </li>
+              </ul>
+            </div>
+          </article>
+
+          <article className={styles.listRecipe__item}>
+            <span className="material-symbols-outlined">menu_book</span>
+            <div>
+              <strong>Milanesas con cabutia</strong>
+              <small>4 Ingredientes</small>
+            </div>
+            <span className="material-symbols-outlined">expand_more</span>
+          </article>
+
+          <article className={styles.listRecipe__item}>
+            <span className="material-symbols-outlined">menu_book</span>
+            <div>
+              <strong>Hamburguesas</strong>
+              <small>4 Ingredientes</small>
+            </div>
+            <span className="material-symbols-outlined">expand_more</span>
+          </article>
+
+          <article className={styles.listRecipe__item}>
+            <span className="material-symbols-outlined">menu_book</span>
+            <div>
+              <strong>Fideos verdes con crema</strong>
+              <small>4 Ingredientes</small>
+            </div>
+            <span className="material-symbols-outlined">expand_more</span>
+          </article>
         </div>
-      </div>
+      </section>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      <section className={styles.shop}>
+        <h3>Compras</h3>
+        <div className={styles.listShop}>
+          <article className={styles.listShop__item}>
+            <span className="material-symbols-outlined">grocery</span>
+            <div>
+              <strong>Leche</strong>
+              <small>Lacteos</small>
+            </div>
+          </article>
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+          <article className={styles.listShop__item}>
+            <span className="material-symbols-outlined">grocery</span>
+            <div>
+              <strong>Crema</strong>
+              <small>Lacteos</small>
+            </div>
+          </article>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
+          <article className={styles.listShop__item}>
+            <span className="material-symbols-outlined">nutrition</span>
+            <div>
+              <strong>Cebolla</strong>
+              <small>Frutas / Verduras</small>
+            </div>
+          </article>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+          <article className={styles.listShop__item}>
+            <span className="material-symbols-outlined">grocery</span>
+            <div>
+              <strong>Fideos verdes</strong>
+              <small>Alacena</small>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>    
   );
 }
