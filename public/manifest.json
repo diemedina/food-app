@@ -1,0 +1,10 @@
+{
+  "theme_color" : "#150640",
+  "background_color" : "#fdfbf8",
+  "display" : "fullscreen",
+  "scope" : "/",
+  "start_url" : "/",
+  "name" : "Food App",
+  "short_name" : "Food",
+  "description" : "Organize your foods"
+}
