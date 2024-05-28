@@ -1,6 +1,25 @@
+"use client"
+
+import { useCalendarStore } from '../store/calendar'
 import styles from './page.module.css'
 
+type Model = {
+  [key: number]: string
+}
+
+const days: Model = {
+  1: 'Domingo',
+  2: 'Lunes',
+  3: 'Martes',
+  4: 'Miércoles',
+  5: 'Jueves',
+  6: 'Viernes',
+  7: 'Sábado'
+}
+
 export default function Calendar() {
+  const { items } = useCalendarStore()
+  
   return (
     <main className={styles.calendar}>
       <header>
@@ -8,153 +27,25 @@ export default function Calendar() {
       </header>
 
       <section className={styles.listDays}>
-        <article className={styles.listDays__day}>
-          <span className="material-symbols-outlined">calendar_month</span>
-          <h3>Lunes</h3>
-          <section className={styles.listDays__day__section}>
-            <div className={styles.listDays__day__section__item}>
-              <span className="material-symbols-outlined">restaurant</span>
-              <div>
-                <strong>Almuerzo</strong>
-                <h4>Milanesas de soja con capresse</h4>
-              </div>
-            </div>
-            <hr />
-            <div className={styles.listDays__day__section__item}>
-              <span className="material-symbols-outlined">restaurant</span>
-              <div>
-                <strong>Cena</strong>
-                <h4>Guiso de lentejas</h4>
-              </div>
-            </div>
-          </section>
-        </article>
-        <article className={styles.listDays__day}>
-          <span className="material-symbols-outlined">calendar_month</span>
-          <h3>Martes</h3>
-          <section className={styles.listDays__day__section}>
-            <div className={styles.listDays__day__section__item}>
-              <span className="material-symbols-outlined">restaurant</span>
-              <div>
-                <strong>Almuerzo</strong>
-                <h4>Milanesas de soja con capresse</h4>
-              </div>
-            </div>
-            <hr />
-            <div className={styles.listDays__day__section__item}>
-              <span className="material-symbols-outlined">restaurant</span>
-              <div>
-                <strong>Cena</strong>
-                <h4>Guiso de lentejas</h4>
-              </div>
-            </div>
-          </section>
-        </article>
-        <article className={styles.listDays__day}>
-          <span className="material-symbols-outlined">calendar_month</span>
-          <h3>Miercoles</h3>
-          <section className={styles.listDays__day__section}>
-            <div className={styles.listDays__day__section__item}>
-              <span className="material-symbols-outlined">restaurant</span>
-              <div>
-                <strong>Almuerzo</strong>
-                <h4>Milanesas de soja con capresse</h4>
-              </div>
-            </div>
-            <hr />
-            <div className={styles.listDays__day__section__item}>
-              <span className="material-symbols-outlined">restaurant</span>
-              <div>
-                <strong>Cena</strong>
-                <h4>Guiso de lentejas</h4>
-              </div>
-            </div>
-          </section>
-        </article>
-        <article className={styles.listDays__day}>
-          <span className="material-symbols-outlined">calendar_month</span>
-          <h3>Jueves</h3>
-          <section className={styles.listDays__day__section}>
-            <div className={styles.listDays__day__section__item}>
-              <span className="material-symbols-outlined">restaurant</span>
-              <div>
-                <strong>Almuerzo</strong>
-                <h4>Milanesas de soja con capresse</h4>
-              </div>
-            </div>
-            <hr />
-            <div className={styles.listDays__day__section__item}>
-              <span className="material-symbols-outlined">restaurant</span>
-              <div>
-                <strong>Cena</strong>
-                <h4>Guiso de lentejas</h4>
-              </div>
-            </div>
-          </section>
-        </article>
-        <article className={styles.listDays__day}>
-          <span className="material-symbols-outlined">calendar_month</span>
-          <h3>Viernes</h3>
-          <section className={styles.listDays__day__section}>
-            <div className={styles.listDays__day__section__item}>
-              <span className="material-symbols-outlined">restaurant</span>
-              <div>
-                <strong>Almuerzo</strong>
-                <h4>Milanesas de soja con capresse</h4>
-              </div>
-            </div>
-            <hr />
-            <div className={styles.listDays__day__section__item}>
-              <span className="material-symbols-outlined">restaurant</span>
-              <div>
-                <strong>Cena</strong>
-                <h4>Guiso de lentejas</h4>
-              </div>
-            </div>
-          </section>
-        </article>
-        <article className={styles.listDays__day}>
-          <span className="material-symbols-outlined">calendar_month</span>
-          <h3>Sabado</h3>
-          <section className={styles.listDays__day__section}>
-            <div className={styles.listDays__day__section__item}>
-              <span className="material-symbols-outlined">restaurant</span>
-              <div>
-                <strong>Almuerzo</strong>
-                <h4>Milanesas de soja con capresse</h4>
-              </div>
-            </div>
-            <hr />
-            <div className={styles.listDays__day__section__item}>
-              <span className="material-symbols-outlined">restaurant</span>
-              <div>
-                <strong>Cena</strong>
-                <h4>Guiso de lentejas</h4>
-              </div>
-            </div>
-          </section>
-        </article>
-        <article className={styles.listDays__day}>
-          <span className="material-symbols-outlined">calendar_month</span>
-          <h3>Domingo</h3>
-          <section className={styles.listDays__day__section}>
-            <div className={styles.listDays__day__section__item}>
-              <span className="material-symbols-outlined">restaurant</span>
-              <div>
-                <strong>Almuerzo</strong>
-                <h4>Milanesas de soja con capresse</h4>
-              </div>
-            </div>
-            <hr />
-            <div className={styles.listDays__day__section__item}>
-              <span className="material-symbols-outlined">restaurant</span>
-              <div>
-                <strong>Cena</strong>
-                <h4>Guiso de lentejas</h4>
-              </div>
-            </div>
-          </section>
-        </article>
+        {
+          items.map(item => (
+            <article className={styles.listDays__day} key={item.id}>
+              <span className="material-symbols-outlined">calendar_month</span>
+              <h3>{days[item.day]}</h3>
+              <section className={styles.listDays__day__section}>
+                {item.foods.map((food, idx) => (
+                  <div className={styles.listDays__day__section__item} key={food.id}>
+                    <span className="material-symbols-outlined">restaurant</span>
+                    <div>
+                      <strong>{idx == 0 ? 'Almuerzo' : 'Cena'}</strong>
+                      <h4>{food.title}</h4>
+                    </div>
+                  </div>
+                ))}
+              </section>
+            </article>
+          ))
+        }
       </section>
     </main>
   )

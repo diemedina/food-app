@@ -1,7 +1,21 @@
+"use client"
+
+import { useEffect } from 'react'
+import { useRecipeStore } from '../store/recipe'
 import styles from './page.module.css'
 import Link from 'next/link'
 
 export default function Recipe() {
+  const {recipes, edit} = useRecipeStore()
+
+  async function setFridgeItem(recipe: any) {
+    let model = recipe;
+    model['fridge'] = !recipe['fridge']
+    edit(model)
+    const response = await fetch('/api/recipe', {method: 'GET'});
+    console.log(response);
+  }
+
   return (
     <main className={styles.recipe}>
       <header>
@@ -13,90 +27,20 @@ export default function Recipe() {
       </header>
 
       <section className={styles.listRecipe}>
-        <article className={styles.listRecipe__item}>
-          <span className="material-symbols-outlined">menu_book</span>
-          <div>
-            <strong>Rapiditas con palta/atun</strong>
-            <small>4 Ingredientes</small>
-          </div>
-          <div className={styles.listRecipe__item__actions}>
-            <button className={styles.active}>
-              <i className='material-symbols-outlined'>ac_unit</i>
-            </button>
-          </div>
-        </article>
-        <article className={styles.listRecipe__item}>
-          <span className="material-symbols-outlined">menu_book</span>
-          <div>
-            <strong>Rapiditas con palta/atun</strong>
-            <small>4 Ingredientes</small>
-          </div>
-          <div className={styles.listRecipe__item__actions}>
-            <button>
-              <i className='material-symbols-outlined'>ac_unit</i>
-            </button>
-          </div>
-        </article>
-        <article className={styles.listRecipe__item}>
-          <span className="material-symbols-outlined">menu_book</span>
-          <div>
-            <strong>Rapiditas con palta/atun</strong>
-            <small>4 Ingredientes</small>
-          </div>
-          <div className={styles.listRecipe__item__actions}>
-            <button>
-              <i className='material-symbols-outlined'>ac_unit</i>
-            </button>
-          </div>
-        </article>
-        <article className={styles.listRecipe__item}>
-          <span className="material-symbols-outlined">menu_book</span>
-          <div>
-            <strong>Rapiditas con palta/atun</strong>
-            <small>4 Ingredientes</small>
-          </div>
-          <div className={styles.listRecipe__item__actions}>
-            <button className={styles.active}>
-              <i className='material-symbols-outlined'>ac_unit</i>
-            </button>
-          </div>
-        </article>
-        <article className={styles.listRecipe__item}>
-          <span className="material-symbols-outlined">menu_book</span>
-          <div>
-            <strong>Rapiditas con palta/atun</strong>
-            <small>4 Ingredientes</small>
-          </div>
-          <div className={styles.listRecipe__item__actions}>
-            <button className={styles.active}>
-              <i className='material-symbols-outlined'>ac_unit</i>
-            </button>
-          </div>
-        </article>
-        <article className={styles.listRecipe__item}>
-          <span className="material-symbols-outlined">menu_book</span>
-          <div>
-            <strong>Rapiditas con palta/atun</strong>
-            <small>4 Ingredientes</small>
-          </div>
-          <div className={styles.listRecipe__item__actions}>
-            <button className={styles.active}>
-              <i className='material-symbols-outlined'>ac_unit</i>
-            </button>
-          </div>
-        </article>
-        <article className={styles.listRecipe__item}>
-          <span className="material-symbols-outlined">menu_book</span>
-          <div>
-            <strong>Rapiditas con palta/atun</strong>
-            <small>4 Ingredientes</small>
-          </div>
-          <div className={styles.listRecipe__item__actions}>
-            <button className={styles.active}>
-              <i className='material-symbols-outlined'>ac_unit</i>
-            </button>
-          </div>
-        </article>
+        { recipes.map(recipe => (
+          <article className={styles.listRecipe__item} key={recipe.id}>
+            <span className="material-symbols-outlined">menu_book</span>
+            <div>
+              <strong>{recipe.title}</strong>
+              <small>{recipe.ingredients.length} Ingredientes</small>
+            </div>
+            <div className={styles.listRecipe__item__actions}>
+              <button className={recipe.fridge ? styles.active : ''} onClick={() => setFridgeItem(recipe)}>
+                <i className='material-symbols-outlined'>ac_unit</i>
+              </button>
+            </div>
+          </article>
+        ))}
       </section>
     </main>
   )

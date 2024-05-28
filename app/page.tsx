@@ -1,7 +1,16 @@
+"use client"
+
 import styles from "./page.module.css";
 import Link from "next/link";
+import { useCartStore } from "./store/cart";
+import { useRecipeStore } from "./store/recipe";
+import { useCalendarStore } from "./store/calendar";
 
 export default function Home() {
+  const { items } = useCartStore()
+  const { recipes } = useRecipeStore()
+  const { getToday } = useCalendarStore()
+
   return (
     <main className={styles.home}>
       <header className={styles.header}>
@@ -15,118 +24,61 @@ export default function Home() {
         <span className="material-symbols-outlined">calendar_month</span>
         <h3>Calendario</h3>
         <section className={styles.today__section}>
-          <div className={styles.today__section__item}>
-            <span className="material-symbols-outlined">restaurant</span>
-            <div>
-              <strong>Almuerzo</strong>
-              <h4>Milanesas de soja con capresse</h4>
-            </div>
-          </div>
-          <hr />
-          <div className={styles.today__section__item}>
-            <span className="material-symbols-outlined">restaurant</span>
-            <div>
-              <strong>Cena</strong>
-              <h4>Guiso de lentejas</h4>
-            </div>
-          </div>
+          {
+            getToday().foods.map((food, idx) => (
+              <div className={styles.today__section__item} key={food.id}>
+                <span className="material-symbols-outlined">restaurant</span>
+                <div>
+                  <strong>{ idx == 0 ? 'Almuerzo' : 'Cena'}</strong>
+                  <h4>{ food.title }</h4>
+                </div>
+              </div>
+            ))
+          }
         </section>
       </article>
 
       <section className={styles.recipe}>
         <h3>Recetas</h3>
         <div className={styles.listRecipe}>
-          <article className={styles.listRecipe__item}>
-            <span className="material-symbols-outlined">menu_book</span>
-            <div>
-              <strong>Rapiditas con palta/atun</strong>
-              <small>5 Ingredientes</small>
-            </div>
-            <span className="material-symbols-outlined">expand_less</span>
-            <div className={styles.listRecipe__item__description}>
-              <ul>
-                <li className={styles.active}>
-                  <i className="material-symbols-outlined">check</i> Rapiditas
-                </li>
-                <li>
-                  <i className="material-symbols-outlined">horizontal_rule</i> Tomate
-                </li>
-                <li>
-                  <i className="material-symbols-outlined">horizontal_rule</i> Cebolla
-                </li>
-                <li className={styles.active}>
-                  <i className="material-symbols-outlined">check</i> Palta
-                </li>
-                <li className={styles.active}>
-                  <i className="material-symbols-outlined">check</i> Queso Crema
-                </li>
-              </ul>
-            </div>
-          </article>
 
-          <article className={styles.listRecipe__item}>
-            <span className="material-symbols-outlined">menu_book</span>
-            <div>
-              <strong>Milanesas con cabutia</strong>
-              <small>4 Ingredientes</small>
-            </div>
-            <span className="material-symbols-outlined">expand_more</span>
-          </article>
-
-          <article className={styles.listRecipe__item}>
-            <span className="material-symbols-outlined">menu_book</span>
-            <div>
-              <strong>Hamburguesas</strong>
-              <small>4 Ingredientes</small>
-            </div>
-            <span className="material-symbols-outlined">expand_more</span>
-          </article>
-
-          <article className={styles.listRecipe__item}>
-            <span className="material-symbols-outlined">menu_book</span>
-            <div>
-              <strong>Fideos verdes con crema</strong>
-              <small>4 Ingredientes</small>
-            </div>
-            <span className="material-symbols-outlined">expand_more</span>
-          </article>
+          {recipes.map(recipe => (
+            <details className={styles.listRecipe__item} key={recipe.id}>
+              <summary>
+                <span className="material-symbols-outlined">menu_book</span>
+                <div>
+                  <strong>{recipe.title}</strong>
+                  <small>{recipe.ingredients.length} Ingredientes</small>
+                </div>
+              </summary>
+              {
+                recipe.ingredients.length > 0 && <div className={styles.listRecipe__item__description}>
+                  <ul>
+                    {recipe.ingredients.map(ingredient => (
+                      <li className={ingredient.has ? styles.active : ''} key={ingredient.id}>
+                        <i className="material-symbols-outlined">{ingredient.has ? 'check' : 'horizontal_rule'}</i> {ingredient.description}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              }
+            </details>
+          ))}
         </div>
       </section>
 
       <section className={styles.shop}>
         <h3>Compras</h3>
         <div className={styles.listShop}>
-          <article className={styles.listShop__item}>
-            <span className="material-symbols-outlined">grocery</span>
-            <div>
-              <strong>Leche</strong>
-              <small>Lacteos</small>
-            </div>
-          </article>
-
-          <article className={styles.listShop__item}>
-            <span className="material-symbols-outlined">grocery</span>
-            <div>
-              <strong>Crema</strong>
-              <small>Lacteos</small>
-            </div>
-          </article>
-
-          <article className={styles.listShop__item}>
-            <span className="material-symbols-outlined">nutrition</span>
-            <div>
-              <strong>Cebolla</strong>
-              <small>Frutas / Verduras</small>
-            </div>
-          </article>
-
-          <article className={styles.listShop__item}>
-            <span className="material-symbols-outlined">grocery</span>
-            <div>
-              <strong>Fideos verdes</strong>
-              <small>Alacena</small>
-            </div>
-          </article>
+          { items.slice(0, 5).map(item => (
+            <article className={styles.listShop__item} key={item.id}>
+              <span className="material-symbols-outlined">grocery</span>
+              <div>
+                <strong>{item.description}</strong>
+                <small>{item.category}</small>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
     </main>    

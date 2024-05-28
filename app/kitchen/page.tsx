@@ -1,7 +1,18 @@
+"use client"
+
 import Link from 'next/link'
 import styles from './page.module.css'
+import { useKitchenStore } from '../store/kitchen'
 
 export default function Kitchen() {
+  const { items, edit } = useKitchenStore()
+
+  function setProperty(item: any, property: string) {
+    const model = {...item}
+    model[property] = !item[property];
+    edit(model)
+  }
+
   return (
     <main className={styles.kitchen}>
       <header>
@@ -13,81 +24,23 @@ export default function Kitchen() {
       </header>
 
       <section className={styles.listItems}>
-        <article className={styles.listItems__item}>
-          <span className="material-symbols-outlined">grocery</span>
-          <div>
-            <strong>Rapiditas</strong>
-            <small>Alacena</small>
-          </div>
-          <div className={styles.listItems__item__actions}>
-            <button className={styles.active}>
-              <i className='material-symbols-outlined'>shopping_cart</i>
-            </button>
-            <button>
-              <i className='material-symbols-outlined'>horizontal_rule</i>
-            </button>
-          </div>
-        </article>
-        <article className={styles.listItems__item}>
-          <span className="material-symbols-outlined">grocery</span>
-          <div>
-            <strong>Arroz</strong>
-            <small>Alacena</small>
-          </div>
-          <div className={styles.listItems__item__actions}>
-            <button>
-              <i className='material-symbols-outlined'>shopping_cart_off</i>
-            </button>
-            <button className={styles.active}>
-              <i className='material-symbols-outlined'>done</i>
-            </button>
-          </div>
-        </article>
-        <article className={styles.listItems__item}>
-          <span className="material-symbols-outlined">grocery</span>
-          <div>
-            <strong>Harina</strong>
-            <small>Alacena</small>
-          </div>
-          <div className={styles.listItems__item__actions}>
-            <button>
-              <i className='material-symbols-outlined'>shopping_cart_off</i>
-            </button>
-            <button className={styles.active}>
-              <i className='material-symbols-outlined'>done</i>
-            </button>
-          </div>
-        </article>
-        <article className={styles.listItems__item}>
-          <span className="material-symbols-outlined">grocery</span>
-          <div>
-            <strong>Salsa de tomate</strong>
-            <small>Alacena</small>
-          </div>
-          <div className={styles.listItems__item__actions}>
-            <button>
-              <i className='material-symbols-outlined'>shopping_cart_off</i>
-            </button>
-            <button className={styles.active}>
-              <i className='material-symbols-outlined'>done</i>
-            </button>
-          </div>
-        </article>
-        <article className={styles.listItems__item}>
-          <span className="material-symbols-outlined">grocery</span>
-          <div>
-            <strong>Pure chef</strong>
-            <small>Alacena</small>
-          </div>
-          <div className={styles.listItems__item__actions}>
-            <button>
-              <i className='material-symbols-outlined'>shopping_cart_off</i>
-            </button>
-            <button className={styles.active}>
-              <i className='material-symbols-outlined'>done</i>
-            </button>
-          </div>
-        </article>
+        { items.map(item => (
+          <article className={styles.listItems__item} key={item.id}>
+            <span className="material-symbols-outlined">grocery</span>
+            <div>
+              <strong>{item.description}</strong>
+              <small>{item.category}</small>
+            </div>
+            <div className={styles.listItems__item__actions}>
+              <button className={item.buy ? styles.active : ''} onClick={() => setProperty(item, 'buy')}>
+                <i className='material-symbols-outlined'>{item.buy ? 'shopping_cart' : 'shopping_cart_off'}</i>
+              </button>
+              <button className={item.has ? styles.active : ''} onClick={() => setProperty(item, 'has')}>
+                <i className='material-symbols-outlined'>{item.has ? 'done' : 'horizontal_rule'}</i>
+              </button>
+            </div>
+          </article>
+        ))}
       </section>
     </main>
   )
