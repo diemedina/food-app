@@ -6,8 +6,9 @@ import { usePathname } from 'next/navigation';
 
 export default function Navbar() {
   const pathname = usePathname()
+  const validPath = ['/recipe', '/kitchen', '/calendar', '/']
 
-  if (pathname !== '/recipe/create' && pathname !== '/kitchen/create') {
+  if (validPath.includes(pathname)) {
     return (
       <nav className={style.navbar}>
         <Link href='/' className={pathname === '/' ? style.active : ''}>

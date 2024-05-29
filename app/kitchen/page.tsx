@@ -26,11 +26,13 @@ export default function Kitchen() {
       <section className={styles.listItems}>
         { items.map(item => (
           <article className={styles.listItems__item} key={item.id}>
-            <span className="material-symbols-outlined">grocery</span>
-            <div>
-              <strong>{item.description}</strong>
-              <small>{item.category}</small>
-            </div>
+            <Link href={`/kitchen/${item.id}`}>
+              <span className="material-symbols-outlined">grocery</span>
+              <div>
+                <strong>{item.description}</strong>
+                <small>{item.category}</small>
+              </div>
+            </Link>
             <div className={styles.listItems__item__actions}>
               <button className={item.buy ? styles.active : ''} onClick={() => setProperty(item, 'buy')}>
                 <i className='material-symbols-outlined'>{item.buy ? 'shopping_cart' : 'shopping_cart_off'}</i>

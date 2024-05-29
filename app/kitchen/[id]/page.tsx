@@ -1,30 +1,40 @@
 "use client"
 
-import { useState } from 'react'
-import styles from './page.module.css'
+import { useEffect, useState } from 'react'
+import styles from '../create/page.module.css'
 import Link from 'next/link'
 import { useKitchenStore } from '@/app/store/kitchen'
 import { Ingredient } from '@/app/utils/types'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 
-export default function CreateRecipe() {
+export default function EditRecipe() {
   const router = useRouter()
+  const params = useParams<{ id: string }>()
   const [description, setDescription] = useState<string>('')
   const [category, setCategory] = useState<string>('')
-  const { add } = useKitchenStore()
+  const { get, edit, remove } = useKitchenStore()
+  const model: Ingredient = get(params.id)
 
-  function handleSubmit (e: any) {
-    e.preventDefault()
-    const model: Ingredient = {
-      id: Math.random().toString(16).slice(2),
-      description,
-      category,
-      has: false,
-      buy: false
-    }    
-    add(model)
+  useEffect(() => {
+    setDescription(model.description)
+    setCategory(model.category)
+  }, [])
+  
+  function handleSubmit () {
+    const _model: Ingredient = {
+      ...model,
+      description: description,
+      category: category
+    }
+    edit(_model)
     router.push('/kitchen')
-    // TODO: llevarlo al listado y mostrar la notificación
+    // TODO: mostrar la notificación
+  }
+
+  function removeItem () {
+    remove(params.id)
+    router.push('/kitchen')
+    // TODO: mostrar la notificación
   }
 
   return (
@@ -33,7 +43,7 @@ export default function CreateRecipe() {
         <Link href="/kitchen">
           <span className="material-symbols-outlined">arrow_back_ios_new</span>
         </Link>
-        <h2>Agregar Ingrediente</h2>
+        <h2>Editar Ingrediente</h2>
       </header>
       <section className={styles.form}>
         <div className={styles.content_input}>
@@ -58,7 +68,10 @@ export default function CreateRecipe() {
           </ul>
         </div>
         <button onClick={handleSubmit}>
-          AGREGAR
+          EDITAR
+        </button>
+        <button className={styles.button_outline} onClick={removeItem}>
+          ELIMINAR
         </button>
       </section>
     </main>
