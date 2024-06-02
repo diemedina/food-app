@@ -6,10 +6,14 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { Ingredient, Recipe } from '@/app/utils/types'
 import { useRecipeStore } from '@/app/store/recipe'
+import { useRouter } from 'next/navigation'
+import { useCategoriesStore } from '@/app/store/categories'
 
 export default function CreateRecipe() {
+  const router = useRouter()
   const { items } = useKitchenStore()
   const { add } = useRecipeStore()
+  const { getCategory } = useCategoriesStore()
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('')
   const [ingredients, setIngredients] = useState<Ingredient[]>([])
@@ -39,6 +43,7 @@ export default function CreateRecipe() {
     }
 
     add(model)
+    router.push('/recipe')
   }
 
   return (
@@ -64,7 +69,7 @@ export default function CreateRecipe() {
             {
               items.map(item => (
                 <li key={item.id} onClick={() => toggleIngredient(item)} className={existIngrediend(item) ? styles.active : ''}>
-                  <i className="material-symbols-outlined">{existIngrediend(item) ? 'check': 'horizontal_rule'}</i> {item.description} <div className={styles.category}>{item.category}</div>
+                  <i className="material-symbols-outlined">{existIngrediend(item) ? 'check': 'horizontal_rule'}</i> {item.description} <div className={styles.category}>{getCategory(item.category).description}</div>
                 </li>
               ))
             }

@@ -21,6 +21,10 @@
     flex-direction: column;
     gap: 12px;
     padding: 0px 0px 12px 0px;
+    
+    & a {
+      text-decoration: none;
+    }
 
     & .listDays__day {
       width: 100%;

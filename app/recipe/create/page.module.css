@@ -103,6 +103,11 @@
       background: #2E2364;
       color: #FF8F97;
       font-weight: bold;
+
+      &.button_outline {
+        background: transparent;
+        color: #2E2364;
+      }
     }
   }
 }

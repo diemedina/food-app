@@ -1,0 +1,143 @@
+.calendar {
+  padding: 12px 12px 72px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  & header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    & h2 {
+      line-height: 44px;
+      font-size: 24px;
+      margin: 0;
+      font-weight: bold;
+    }
+
+    & a {
+      display: flex;
+      align-items: center;
+      background: #F1E6E0;
+      border-radius: 50%;
+      border: none;
+      height: 32px;
+      width: 32px;
+      padding: 6px;
+      color: #2E2364;
+      text-decoration: none;
+
+      & span {
+        font-size: 20px;
+      }
+    }
+  }
+
+  & .today {
+    width: 100%;
+    background: #FF8F97;
+    color: #2E2364;
+    padding: 12px;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+
+    & h3 {
+      font-size: 20px;
+      font-weight: bold;
+      margin: 0 0 12px 0;
+      color: #F1E6E0;
+    }
+
+    & > span {
+      position: absolute;
+      font-size: 68px;
+      opacity: .1;
+      top: -6px;
+      right: -6px;
+    }
+
+    & .today__section {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      & hr {
+        color: #F1E6E0;
+        border: .5px solid;
+        width: 100%;
+        opacity: .3;
+      }
+
+      & .today__section__item {
+        display: flex;
+        gap: 12px;
+        opacity: .5;
+
+        &.active {
+          opacity: 1;
+        }
+
+        & span {
+          background: #F1E6E0;
+          color: #FF8F97;
+          border-radius: 4px;
+          width: 44px;
+          height: 44px;
+          font-size: 36px;
+          padding: 4px;
+        }
+
+        & div {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+        }
+        & h4 {
+          margin: 0;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  & .list_recipes {
+    padding: 0px;
+    list-style: none;
+    margin: 0px 0px 8px 0px;
+
+    & li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 8px 0px;
+
+      & i {
+        background: #F1E6E0;
+        color: #FF8F97;
+        border-radius: 4px;
+        font-weight: bold;
+      }
+      
+      &.active i {
+        background: #FF8F97;
+        color: #F1E6E0;
+      }
+
+    }
+  }
+
+  & button {
+    width: 100%;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    border: none;
+    background: #2E2364;
+    color: #FF8F97;
+    font-weight: bold;
+  }
+}

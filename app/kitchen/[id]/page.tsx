@@ -6,13 +6,15 @@ import Link from 'next/link'
 import { useKitchenStore } from '@/app/store/kitchen'
 import { Ingredient } from '@/app/utils/types'
 import { useParams, useRouter } from 'next/navigation'
+import { useCategoriesStore } from '@/app/store/categories'
 
 export default function EditRecipe() {
   const router = useRouter()
   const params = useParams<{ id: string }>()
   const [description, setDescription] = useState<string>('')
-  const [category, setCategory] = useState<string>('')
+  const [category, setCategory] = useState<number>(0)
   const { get, edit, remove } = useKitchenStore()
+  const { categories } = useCategoriesStore()
   const model: Ingredient = get(params.id)
 
   useEffect(() => {
@@ -52,20 +54,13 @@ export default function EditRecipe() {
         </div>
         <div className={styles.content_input}>
           <label htmlFor="description">Categoria</label>
-          <ul className={styles.list_ingredients}>
-            <li onClick={() => setCategory('Lacteos')} className={category == 'Lacteos' ? styles.active : ''}>
-              <i className="material-symbols-outlined">{category == 'Lacteos' ? 'check' : 'check_indeterminate_small'}</i> Lacteos
-            </li>
-            <li onClick={() => setCategory('Secos')} className={category == 'Secos' ? styles.active : ''}>
-              <i className="material-symbols-outlined">{category == 'Secos' ? 'check' : 'check_indeterminate_small'}</i> Secos
-            </li>
-            <li onClick={() => setCategory('Limpieza')} className={category == 'Limpieza' ? styles.active : ''}>
-              <i className="material-symbols-outlined">{category == 'Limpieza' ? 'check' : 'check_indeterminate_small'}</i> Limpieza
-            </li>
-            <li onClick={() => setCategory('Congelados')} className={category == 'Congelados' ? styles.active : ''}>
-              <i className="material-symbols-outlined">{category == 'Congelados' ? 'check' : 'check_indeterminate_small'}</i> Congelados
-            </li>
-          </ul>
+          <div className={styles.list_ingredients}>
+            {categories.map(item => (
+              <button key={item.id} onClick={() => setCategory(item.id)} className={category == item.id ? styles.active : ''}>
+                <i className="material-symbols-outlined">{item.icon}</i> {item.description}
+              </button>
+            ))}
+          </div>
         </div>
         <button onClick={handleSubmit}>
           EDITAR

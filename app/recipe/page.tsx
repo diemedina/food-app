@@ -29,11 +29,13 @@ export default function Recipe() {
       <section className={styles.listRecipe}>
         { recipes.map(recipe => (
           <article className={styles.listRecipe__item} key={recipe.id}>
-            <span className="material-symbols-outlined">menu_book</span>
-            <div>
-              <strong>{recipe.title}</strong>
-              <small>{recipe.ingredients.length} Ingredientes</small>
-            </div>
+            <Link href={`/recipe/${recipe.id}`}>
+              <span className="material-symbols-outlined">menu_book</span>
+              <div>
+                <strong>{recipe.title}</strong>
+                <small>{recipe.ingredients.length} Ingredientes</small>
+              </div>
+            </Link>
             <div className={styles.listRecipe__item__actions}>
               <button className={recipe.fridge ? styles.active : ''} onClick={() => setFridgeItem(recipe)}>
                 <i className='material-symbols-outlined'>ac_unit</i>

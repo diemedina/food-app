@@ -1,18 +1,30 @@
 "use client"
 
 import { useKitchenStore } from '@/app/store/kitchen'
-import styles from './page.module.css'
+import styles from '../create/page.module.css'
 import Link from 'next/link'
-import { useState } from 'react'
+import { use, useEffect, useState } from 'react'
 import { Ingredient, Recipe } from '@/app/utils/types'
 import { useRecipeStore } from '@/app/store/recipe'
+import { useParams, useRouter } from 'next/navigation'
+import { useCategoriesStore } from '@/app/store/categories'
 
-export default function EditRecipe() {
+export default function CreateRecipe() {
+  const router = useRouter()
+  const params = useParams<{ id: string }>()
   const { items } = useKitchenStore()
-  const { add } = useRecipeStore()
+  const { get, remove, edit } = useRecipeStore()
+  const { getCategory } = useCategoriesStore()
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('')
   const [ingredients, setIngredients] = useState<Ingredient[]>([])
+  const model: Recipe = get(params.id)
+
+  useEffect(() => {
+    setTitle(model.title)
+    setDescription(model.description)
+    setIngredients(model.ingredients)
+  }, [])
 
   function toggleIngredient(ingredient: Ingredient) {
     const indexIngredient = ingredients.findIndex(i => i.id == ingredient.id)
@@ -29,16 +41,21 @@ export default function EditRecipe() {
     return ingredients.findIndex(i => i.id == ingredient.id) > -1
   }
 
-  function addRecipe() {
-    const model: Recipe = {
-      id: Math.random().toString(16).slice(2),
+  function editRecipe() {
+    const _model: Recipe = {
+      ...model,
       title,
       description,
-      ingredients,
-      fridge: false,
+      ingredients
     }
 
-    add(model)
+    edit(_model)
+    router.push('/recipe')
+  }
+
+  function deleteRecipe() {
+    remove(params.id)
+    router.push('/recipe')
   }
 
   return (
@@ -47,7 +64,7 @@ export default function EditRecipe() {
         <Link href="/recipe">
           <span className="material-symbols-outlined">arrow_back_ios_new</span>
         </Link>
-        <h2>Crear receta</h2>
+        <h2>Editar receta</h2>
       </header>
       <section className={styles.form}>
         <div className={styles.content_input}>
@@ -64,14 +81,17 @@ export default function EditRecipe() {
             {
               items.map(item => (
                 <li key={item.id} onClick={() => toggleIngredient(item)} className={existIngrediend(item) ? styles.active : ''}>
-                  <i className="material-symbols-outlined">{existIngrediend(item) ? 'check': 'horizontal_rule'}</i> {item.description} <div className={styles.category}>{item.category}</div>
+                  <i className="material-symbols-outlined">{existIngrediend(item) ? 'check': 'horizontal_rule'}</i> {item.description} <div className={styles.category}>{getCategory(item.category).description}</div>  
                 </li>
               ))
             }
           </ul>
         </div>
-        <button onClick={addRecipe}>
-          AGREGAR
+        <button onClick={editRecipe}>
+          EDITAR
+        </button>
+        <button className={styles.button_outline} onClick={deleteRecipe}>
+          ELIMINAR
         </button>
       </section>
     </main>

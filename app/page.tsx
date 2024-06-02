@@ -5,11 +5,14 @@ import Link from "next/link";
 import { useCartStore } from "./store/cart";
 import { useRecipeStore } from "./store/recipe";
 import { useCalendarStore } from "./store/calendar";
+import { useCategoriesStore } from "./store/categories";
+import { get } from "https";
 
 export default function Home() {
   const { items } = useCartStore()
   const { recipes } = useRecipeStore()
   const { getToday } = useCalendarStore()
+  const { getCategory } = useCategoriesStore()
 
   return (
     <main className={styles.home}>
@@ -20,23 +23,25 @@ export default function Home() {
         </Link>
       </header>
 
-      <article className={styles.today}>
-        <span className="material-symbols-outlined">calendar_month</span>
-        <h3>Calendario</h3>
-        <section className={styles.today__section}>
-          {
-            getToday().foods.map((food, idx) => (
-              <div className={styles.today__section__item} key={food.id}>
-                <span className="material-symbols-outlined">restaurant</span>
-                <div>
-                  <strong>{ idx == 0 ? 'Almuerzo' : 'Cena'}</strong>
-                  <h4>{ food.title }</h4>
+      <Link href={`/calendar/${new Date().getDay()}`}>
+        <article className={styles.today}>
+          <span className="material-symbols-outlined">calendar_month</span>
+          <h3>Calendario</h3>
+          <section className={styles.today__section}>
+            {
+              getToday().foods.map((food, idx) => (
+                <div className={styles.today__section__item} key={food.id}>
+                  <span className="material-symbols-outlined">restaurant</span>
+                  <div>
+                    <strong>{ idx == 0 ? 'Almuerzo' : 'Cena'}</strong>
+                    <h4>{ food.title }</h4>
+                  </div>
                 </div>
-              </div>
-            ))
-          }
-        </section>
-      </article>
+              ))
+            }
+          </section>
+        </article>
+      </Link>
 
       <section className={styles.recipe}>
         <h3>Recetas</h3>
@@ -72,10 +77,10 @@ export default function Home() {
         <div className={styles.listShop}>
           { items.slice(0, 5).map(item => (
             <article className={styles.listShop__item} key={item.id}>
-              <span className="material-symbols-outlined">grocery</span>
+              <span className="material-symbols-outlined">{getCategory(item.category).icon}</span>
               <div>
                 <strong>{item.description}</strong>
-                <small>{item.category}</small>
+                <small>{getCategory(item.category).description}</small>
               </div>
             </article>
           ))}

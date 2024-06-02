@@ -15,11 +15,11 @@ type Action = {
 
 export const useKitchenStore = create<State & Action>((set, get) => ({
   items: [
-    {id: Math.random().toString(16).slice(2), description: 'Rapiditas', category: 'Alacena', has: true, buy: false},
-    {id: Math.random().toString(16).slice(2), description: 'Arroz', category: 'Alacena', has: false, buy: false},
-    {id: Math.random().toString(16).slice(2), description: 'Harina', category: 'Alacena', has: true, buy: false},
-    {id: Math.random().toString(16).slice(2), description: 'Salsa de tomate', category: 'Alacena', has: true, buy: true},
-    {id: Math.random().toString(16).slice(2), description: 'Pure Chef', category: 'Alacena', has: true, buy: false},
+    {id: Math.random().toString(16).slice(2), description: 'Rapiditas', category: 1, has: true, buy: false},
+    {id: Math.random().toString(16).slice(2), description: 'Arroz', category: 1, has: false, buy: false},
+    {id: Math.random().toString(16).slice(2), description: 'Harina', category: 1, has: true, buy: false},
+    {id: Math.random().toString(16).slice(2), description: 'Salsa de tomate', category: 1, has: true, buy: true},
+    {id: Math.random().toString(16).slice(2), description: 'Pure Chef', category: 1, has: true, buy: false},
   ],
   edit: (model: Ingredient) => {
     const index = get().items.findIndex(item => item.id == model.id);

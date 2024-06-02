@@ -13,12 +13,12 @@ type Action = {
 
 export const useCartStore = create<State & Action>((set) => ({
   items: [
-    {id: Math.random().toString(16).slice(2), description: 'Leche', category: 'Lácteos', has: true, buy: false},
-    {id: Math.random().toString(16).slice(2), description: 'Huevos', category: 'Huevos', has: true, buy: false},
-    {id: Math.random().toString(16).slice(2), description: 'Harina', category: 'Harinas', has: true, buy: false},
-    {id: Math.random().toString(16).slice(2), description: 'Azúcar', category: 'Endulzantes', has: true, buy: false},
-    {id: Math.random().toString(16).slice(2), description: 'Aceite', category: 'Aceites', has: true, buy: false},
-    {id: Math.random().toString(16).slice(2), description: 'Sal', category: 'Condimentos', has: true, buy: false}
+    {id: Math.random().toString(16).slice(2), description: 'Leche', category: 4, has: true, buy: false},
+    {id: Math.random().toString(16).slice(2), description: 'Huevos', category: 4, has: true, buy: false},
+    {id: Math.random().toString(16).slice(2), description: 'Harina', category: 1, has: true, buy: false},
+    {id: Math.random().toString(16).slice(2), description: 'Azúcar', category: 1, has: true, buy: false},
+    {id: Math.random().toString(16).slice(2), description: 'Aceite', category: 1, has: true, buy: false},
+    {id: Math.random().toString(16).slice(2), description: 'Sal', category: 1, has: true, buy: false}
   ],
   setItems: (items: Ingredient[]) => set(() => ({ items })),
   add: (model: Ingredient) => set((state): State => ({ items: [...state.items, model] })),

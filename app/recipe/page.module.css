@@ -38,19 +38,29 @@
 
     & .listRecipe__item {
       display: grid;
-      grid-template-columns: 44px 1fr 32px;
+      grid-template-columns: 1fr 32px;
       align-items: center;
       gap: 12px;
-      
-      & span:first-child {
-        background: #F1E6E0;
-        color: #FF8F97;
-        border-radius: 4px;
-        width: 44px;
-        height: 44px;
-        font-size: 36px;
-        padding: 4px;
+
+      & a {
+        display: grid;
+        grid-template-columns: 44px 1fr;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        color: #000;
+
+        & span:first-child {
+          background: #F1E6E0;
+          color: #FF8F97;
+          border-radius: 4px;
+          width: 44px;
+          height: 44px;
+          font-size: 36px;
+          padding: 4px;
+        }
       }
+      
 
       & .listRecipe__item__actions {
         display: flex;

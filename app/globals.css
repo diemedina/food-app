@@ -44,6 +44,10 @@ p, span {
   text-wrap: pretty;
 }
 
+a {
+  text-decoration: none;
+}
+
 details > summary {
   list-style: none;
 }

@@ -6,6 +6,7 @@ type State = {
 }
 
 type Action = {
+  get: (id: string) => Recipe,
   setRecipes: (recipes: Recipe[]) => void,
   edit: (model: Recipe) => void,
   add: (model: Recipe) => void,
@@ -21,7 +22,15 @@ export const useRecipeStore = create<State & Action>((set, get) => ({
       {id: Math.random().toString(16).slice(2), description: 'Papa', category: '', has: true, buy: false},
       {id: Math.random().toString(16).slice(2), description: 'Leche', category: '', has: true, buy: false}
     ], fridge: false},
+    {id: Math.random().toString(16).slice(2), title: 'Pizza', description: '', ingredients: [
+      {id: Math.random().toString(16).slice(2), description: 'Harina', category: '', has: true, buy: false},
+      {id: Math.random().toString(16).slice(2), description: 'Tomate', category: '', has: true, buy: false},
+      {id: Math.random().toString(16).slice(2), description: 'Queso', category: '', has: true, buy: false},
+      {id: Math.random().toString(16).slice(2), description: 'Jamón', category: '', has: false, buy: false},
+      {id: Math.random().toString(16).slice(2), description: 'Aceitunas', category: '', has: false, buy: false}
+    ], fridge: false},
   ],
+  get: (id: string) => get().recipes.find(i => i.id == id) || {id: '', title: '', description: '', ingredients: [], fridge: false},
   setRecipes: (recipes: Recipe[]) => set(() => ({ recipes })),
   edit: (model: Recipe) => {
     const index = get().recipes.findIndex(recipe => recipe.id == model.id);

@@ -3,9 +3,11 @@
 import Link from 'next/link'
 import styles from './page.module.css'
 import { useKitchenStore } from '../store/kitchen'
+import { useCategoriesStore } from '../store/categories'
 
 export default function Kitchen() {
   const { items, edit } = useKitchenStore()
+  const { getCategory } = useCategoriesStore()
 
   function setProperty(item: any, property: string) {
     const model = {...item}
@@ -27,10 +29,10 @@ export default function Kitchen() {
         { items.map(item => (
           <article className={styles.listItems__item} key={item.id}>
             <Link href={`/kitchen/${item.id}`}>
-              <span className="material-symbols-outlined">grocery</span>
+              <span className="material-symbols-outlined">{getCategory(item.category).icon}</span>
               <div>
                 <strong>{item.description}</strong>
-                <small>{item.category}</small>
+                <small>{getCategory(item.category).description}</small>
               </div>
             </Link>
             <div className={styles.listItems__item__actions}>

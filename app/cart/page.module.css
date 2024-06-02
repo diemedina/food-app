@@ -7,7 +7,8 @@
 
   & header {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
 
     & h2 {
       line-height: 44px;
@@ -16,16 +17,21 @@
       font-weight: bold;
     }
 
-    & button {
+    & a {
       display: flex;
       align-items: center;
-      gap: 4px;
       background: #F1E6E0;
-      padding: 8px;
-      border-radius: 8px;
+      border-radius: 50%;
       border: none;
-      height: 44px;
+      height: 32px;
+      width: 32px;
+      padding: 6px;
       color: #2E2364;
+      text-decoration: none;
+
+      & span {
+        font-size: 20px;
+      }
     }
   }
 
