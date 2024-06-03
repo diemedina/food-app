@@ -30,6 +30,20 @@
     }
   }
 
+  & .button__add {
+    color: #FF8F97;
+    background-color: #F1E6E0;
+    border: none;
+    padding: 12px 0px;
+    border-radius: 8px;
+    width: 100%;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   & .listRecipe {
     display: flex;
     flex-direction: column;

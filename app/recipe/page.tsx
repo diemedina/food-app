@@ -1,6 +1,5 @@
 "use client"
 
-import { useEffect } from 'react'
 import { useRecipeStore } from '../store/recipe'
 import styles from './page.module.css'
 import Link from 'next/link'
@@ -20,29 +19,43 @@ export default function Recipe() {
     <main className={styles.recipe}>
       <header>
         <h2>Recetas</h2>
-        <Link href="/recipe/create">
-          <span className='material-symbols-outlined'>add</span>
-          Agregar
-        </Link>
+        {
+          recipes.length > 0 && (
+            <Link href="/recipe/create">
+              <span className='material-symbols-outlined'>add</span>
+              Agregar
+            </Link>
+          )
+        }
       </header>
 
       <section className={styles.listRecipe}>
-        { recipes.map(recipe => (
-          <article className={styles.listRecipe__item} key={recipe.id}>
-            <Link href={`/recipe/${recipe.id}`}>
-              <span className="material-symbols-outlined">menu_book</span>
-              <div>
-                <strong>{recipe.title}</strong>
-                <small>{recipe.ingredients.length} Ingredientes</small>
-              </div>
-            </Link>
-            <div className={styles.listRecipe__item__actions}>
-              <button className={recipe.fridge ? styles.active : ''} onClick={() => setFridgeItem(recipe)}>
-                <i className='material-symbols-outlined'>ac_unit</i>
+        { 
+          recipes.length > 0 ? (
+            recipes.map(recipe => (
+              <article className={styles.listRecipe__item} key={recipe.id}>
+                <Link href={`/recipe/${recipe.id}`}>
+                  <span className="material-symbols-outlined">menu_book</span>
+                  <div>
+                    <strong>{recipe.title}</strong>
+                    <small>{recipe.ingredients.length} Ingredientes</small>
+                  </div>
+                </Link>
+                <div className={styles.listRecipe__item__actions}>
+                  <button className={recipe.fridge ? styles.active : ''} onClick={() => setFridgeItem(recipe)}>
+                    <i className='material-symbols-outlined'>ac_unit</i>
+                  </button>
+                </div>
+              </article>
+            ))
+          ) : (
+            <Link href="/recipe/create">
+              <button className={styles.button__add}>
+                Agregar Receta
               </button>
-            </div>
-          </article>
-        ))}
+            </Link>
+          )
+        }
       </section>
     </main>
   )

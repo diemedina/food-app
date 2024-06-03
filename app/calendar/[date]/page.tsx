@@ -62,11 +62,15 @@ export default function EditCalendar() {
       <section>
         <ul className={styles.list_recipes}>
           {
-            recipes.map(recipe => (
-              <li key={recipe.id} onClick={() => recipeSelect == recipe.id ? selectRecipe("") : selectRecipe(recipe.id)} className={recipeSelect == recipe.id ? styles.active : ''}>
-                <i className="material-symbols-outlined">{recipeSelect == recipe.id ? 'check' : 'check_indeterminate_small'}</i> {recipe.title}
-              </li>
-            ))
+            recipes.length > 0 ? (
+              recipes.map(recipe => (
+                <li key={recipe.id} onClick={() => recipeSelect == recipe.id ? selectRecipe("") : selectRecipe(recipe.id)} className={recipeSelect == recipe.id ? styles.active : ''}>
+                  <i className="material-symbols-outlined">{recipeSelect == recipe.id ? 'check' : 'check_indeterminate_small'}</i> {recipe.title}
+                </li>
+              ))
+            ) : (
+              <span>No hay recetas cargadas</span>
+            )
           }
         </ul>
       </section> 

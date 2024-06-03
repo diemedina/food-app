@@ -16,18 +16,18 @@ type Action = {
 export const useRecipeStore = create<State & Action>((set, get) => ({
   recipes: [
     {id: Math.random().toString(16).slice(2), title: 'Milanesas con pure', description: '', ingredients: [
-      {id: Math.random().toString(16).slice(2), description: 'Carne', category: '', has: true, buy: false},
-      {id: Math.random().toString(16).slice(2), description: 'Pan rallado', category: '', has: false, buy: false},
-      {id: Math.random().toString(16).slice(2), description: 'Huevo', category: '', has: true, buy: false},
-      {id: Math.random().toString(16).slice(2), description: 'Papa', category: '', has: true, buy: false},
-      {id: Math.random().toString(16).slice(2), description: 'Leche', category: '', has: true, buy: false}
+      {id: Math.random().toString(16).slice(2), description: 'Carne', category: 1, has: true, buy: false},
+      {id: Math.random().toString(16).slice(2), description: 'Pan rallado', category: 1, has: false, buy: false},
+      {id: Math.random().toString(16).slice(2), description: 'Huevo', category: 1, has: true, buy: false},
+      {id: Math.random().toString(16).slice(2), description: 'Papa', category: 1, has: true, buy: false},
+      {id: Math.random().toString(16).slice(2), description: 'Leche', category: 1, has: true, buy: false}
     ], fridge: false},
     {id: Math.random().toString(16).slice(2), title: 'Pizza', description: '', ingredients: [
-      {id: Math.random().toString(16).slice(2), description: 'Harina', category: '', has: true, buy: false},
-      {id: Math.random().toString(16).slice(2), description: 'Tomate', category: '', has: true, buy: false},
-      {id: Math.random().toString(16).slice(2), description: 'Queso', category: '', has: true, buy: false},
-      {id: Math.random().toString(16).slice(2), description: 'Jamón', category: '', has: false, buy: false},
-      {id: Math.random().toString(16).slice(2), description: 'Aceitunas', category: '', has: false, buy: false}
+      {id: Math.random().toString(16).slice(2), description: 'Harina', category: 1, has: true, buy: false},
+      {id: Math.random().toString(16).slice(2), description: 'Tomate', category: 1, has: true, buy: false},
+      {id: Math.random().toString(16).slice(2), description: 'Queso', category: 1, has: true, buy: false},
+      {id: Math.random().toString(16).slice(2), description: 'Jamón', category: 1, has: false, buy: false},
+      {id: Math.random().toString(16).slice(2), description: 'Aceitunas', category: 1, has: false, buy: false}
     ], fridge: false},
   ],
   get: (id: string) => get().recipes.find(i => i.id == id) || {id: '', title: '', description: '', ingredients: [], fridge: false},

@@ -27,7 +27,7 @@ export const useKitchenStore = create<State & Action>((set, get) => ({
     items[index] = model;
     set(() => ({ items }))
   },
-  get: (id: string) => get().items.find(i => i.id == id) || {id: '', description: '', category: '', has: false, buy: false},
+  get: (id: string) => get().items.find(i => i.id == id) || {id: '', description: '', category: 1, has: false, buy: false},
   setItems: (items: Ingredient[]) => set(() => ({ items })),
   add: (model: Ingredient) => set((state): State => ({ items: [...state.items, model] })),
   remove: (id: string) => set((state): State => ({ items: state.items.filter(i => i.id != id) }))

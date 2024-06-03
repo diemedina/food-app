@@ -30,6 +30,43 @@
     }
   }
 
+  & .button__add {
+    color: #FF8F97;
+    background-color: #F1E6E0;
+    border: none;
+    padding: 12px 0px;
+    border-radius: 8px;
+    width: 100%;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  & .listFilters {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+    overflow-x: auto;
+
+    & button {
+      background: #F1E6E0;
+      border: none;
+      border-radius: 4px;
+      padding: 8px;
+      color: #2E2364;
+      font-weight: 500;
+      font-size: 16px;
+      min-width: fit-content;
+
+      &.active {
+        background: #FF8F97;
+        color: #F1E6E0;
+      }
+    }
+  }
+
   & .listItems {
     display: flex;
     flex-direction: column;

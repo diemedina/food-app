@@ -24,6 +24,7 @@ export default function CreateRecipe() {
     setTitle(model.title)
     setDescription(model.description)
     setIngredients(model.ingredients)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   function toggleIngredient(ingredient: Ingredient) {
@@ -79,11 +80,15 @@ export default function CreateRecipe() {
           <label htmlFor="description">Ingredientes</label>
           <ul className={styles.list_ingredients}>
             {
-              items.map(item => (
-                <li key={item.id} onClick={() => toggleIngredient(item)} className={existIngrediend(item) ? styles.active : ''}>
-                  <i className="material-symbols-outlined">{existIngrediend(item) ? 'check': 'horizontal_rule'}</i> {item.description} <div className={styles.category}>{getCategory(item.category).description}</div>  
-                </li>
-              ))
+              items.length > 0 ? (
+                items.map(item => (
+                  <li key={item.id} onClick={() => toggleIngredient(item)} className={existIngrediend(item) ? styles.active : ''}>
+                    <i className="material-symbols-outlined">{existIngrediend(item) ? 'check': 'horizontal_rule'}</i> {item.description} <div className={styles.category}>{getCategory(item.category).description}</div>  
+                  </li>
+                ))
+              ) : (
+                <span>No hay ingredientes cargados</span>
+              )
             }
           </ul>
         </div>

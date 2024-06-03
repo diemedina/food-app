@@ -20,6 +20,7 @@ export default function EditRecipe() {
   useEffect(() => {
     setDescription(model.description)
     setCategory(model.category)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   
   function handleSubmit () {

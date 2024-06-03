@@ -104,6 +104,20 @@
       gap: 12px;
       padding: 12px 0px;
 
+      & .button__add {
+        color: #FF8F97;
+        background-color: #F1E6E0;
+        border: none;
+        padding: 12px 0px;
+        border-radius: 8px;
+        width: 100%;
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
       & .listRecipe__item summary, & .listShop__item {
         display: grid;
         grid-template-columns: 44px 1fr;
