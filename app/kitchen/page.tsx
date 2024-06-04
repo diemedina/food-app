@@ -6,10 +6,12 @@ import { useKitchenStore } from '../store/kitchen'
 import { useCategoriesStore } from '../store/categories'
 import { useEffect, useState } from 'react'
 import { Ingredient } from '../utils/types'
+import { useNotificationsStore } from '../store/notifications'
 
 export default function Kitchen() {
   const { items, edit } = useKitchenStore()
   const { categories, getCategory } = useCategoriesStore()
+  const { addNotification } = useNotificationsStore()
   const [ filterActive, setFilterActive ] = useState<number>(0)
   const [ listItems, setListItems ] = useState<Ingredient[]>([]) 
 
@@ -23,6 +25,7 @@ export default function Kitchen() {
     const model = {...item}
     model[property] = !item[property];
     edit(model)
+    addNotification('Ingrediente editado')
   }
 
   useEffect(() => {

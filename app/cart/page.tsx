@@ -6,17 +6,24 @@ import Link from 'next/link'
 import { useCategoriesStore } from '../store/categories'
 import { useEffect, useState } from 'react'
 import { Ingredient } from '../utils/types'
+import { useNotificationsStore } from '../store/notifications'
 
 export default function Cart() {
   const { items, remove } = useCartStore()
   const { categories, getCategory } = useCategoriesStore()
   const [ filterActive, setFilterActive ] = useState(0)
   const [ listItems, setListItems ] = useState<Ingredient[]>([])
+  const { addNotification } = useNotificationsStore()
 
   function getListCategoriesFiltered () {
     const categoriesFiltered = items.map(item => item.category)
     const listCategories = categories.filter(category => categoriesFiltered.includes(category.id))
     return listCategories.length > 0 ? listCategories : []
+  }
+
+  function removeItemInCart (item: Ingredient) {
+    remove(item.id)
+    addNotification(`Compraste ${item.description}`)
   }
   
   useEffect(() => {
@@ -59,7 +66,7 @@ export default function Cart() {
                   <small>{getCategory(item.category).description}</small>
                 </div>
                 <div className={styles.listItems__item__actions}>
-                  <button className={styles.active} onClick={() => remove(item.id)}>
+                  <button className={styles.active} onClick={() => removeItemInCart(item)}>
                     <i className='material-symbols-outlined'>remove_shopping_cart</i>
                   </button>
                 </div>

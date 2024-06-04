@@ -7,6 +7,7 @@ import { useKitchenStore } from '@/app/store/kitchen'
 import { Ingredient } from '@/app/utils/types'
 import { useParams, useRouter } from 'next/navigation'
 import { useCategoriesStore } from '@/app/store/categories'
+import { useNotificationsStore } from '@/app/store/notifications'
 
 export default function EditRecipe() {
   const router = useRouter()
@@ -15,6 +16,7 @@ export default function EditRecipe() {
   const [category, setCategory] = useState<number>(0)
   const { get, edit, remove } = useKitchenStore()
   const { categories } = useCategoriesStore()
+  const { addNotification } = useNotificationsStore()
   const model: Ingredient = get(params.id)
 
   useEffect(() => {
@@ -31,13 +33,13 @@ export default function EditRecipe() {
     }
     edit(_model)
     router.push('/kitchen')
-    // TODO: mostrar la notificación
+    addNotification('Ingrediente editado')
   }
 
   function removeItem () {
     remove(params.id)
     router.push('/kitchen')
-    // TODO: mostrar la notificación
+    addNotification('Ingrediente eliminado')
   }
 
   return (

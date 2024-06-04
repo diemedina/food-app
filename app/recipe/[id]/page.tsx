@@ -8,6 +8,7 @@ import { Ingredient, Recipe } from '@/app/utils/types'
 import { useRecipeStore } from '@/app/store/recipe'
 import { useParams, useRouter } from 'next/navigation'
 import { useCategoriesStore } from '@/app/store/categories'
+import { useNotificationsStore } from '@/app/store/notifications'
 
 export default function CreateRecipe() {
   const router = useRouter()
@@ -15,6 +16,7 @@ export default function CreateRecipe() {
   const { items } = useKitchenStore()
   const { get, remove, edit } = useRecipeStore()
   const { getCategory } = useCategoriesStore()
+  const { addNotification } = useNotificationsStore()
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('')
   const [ingredients, setIngredients] = useState<Ingredient[]>([])
@@ -52,11 +54,13 @@ export default function CreateRecipe() {
 
     edit(_model)
     router.push('/recipe')
+    addNotification('Receta editada') 
   }
 
   function deleteRecipe() {
     remove(params.id)
     router.push('/recipe')
+    addNotification('Receta eliminada')
   }
 
   return (

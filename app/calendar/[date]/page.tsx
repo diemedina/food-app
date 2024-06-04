@@ -14,6 +14,8 @@ export default function EditCalendar() {
   const params = useParams<{ date: string }>()
   const { get, setDate } = useCalendarStore()
   const { recipes } = useRecipeStore()
+  const { addNotification } = useNotificationStore()
+  
   let model = get(Number(params.date))
   const [recipeSelect, setRecipeSelect] = useState<string>('')
   const [tabActive, setTabActive] = useState<string>('almuerzo')
@@ -30,6 +32,7 @@ export default function EditCalendar() {
 
   function editDate() {
     setDate(model)
+    addNotification('Calendario editado')
     router.push('/calendar')
   }
 
@@ -79,4 +82,8 @@ export default function EditCalendar() {
       </button>     
     </main>
   )
+}
+
+function useNotificationStore(): { addNotification: any } {
+  throw new Error('Function not implemented.')
 }

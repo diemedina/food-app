@@ -7,6 +7,7 @@ import { useKitchenStore } from '@/app/store/kitchen'
 import { Ingredient } from '@/app/utils/types'
 import { useRouter } from 'next/navigation'
 import { useCategoriesStore } from '@/app/store/categories'
+import { useNotificationsStore } from '@/app/store/notifications'
 
 export default function CreateRecipe() {
   const router = useRouter()
@@ -14,6 +15,7 @@ export default function CreateRecipe() {
   const [category, setCategory] = useState<number>(0)
   const { add } = useKitchenStore()
   const { categories } = useCategoriesStore()
+  const { addNotification } = useNotificationsStore()
 
   function handleSubmit (e: any) {
     e.preventDefault()
@@ -26,7 +28,7 @@ export default function CreateRecipe() {
     }    
     add(model)
     router.push('/kitchen')
-    // TODO: mostrar la notificación
+    addNotification('Ingrediente agregado')
   }
 
   return (

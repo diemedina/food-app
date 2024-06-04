@@ -20,6 +20,11 @@ export type Category = {
   icon: string
 }
 
+export type Notification = {
+  id: string,
+  description: string
+}
+
 type Model = {
   [key: number]: string
 }

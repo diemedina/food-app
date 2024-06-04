@@ -1,18 +1,19 @@
 "use client"
 
+import { useNotificationsStore } from '../store/notifications'
 import { useRecipeStore } from '../store/recipe'
 import styles from './page.module.css'
 import Link from 'next/link'
 
 export default function Recipe() {
   const {recipes, edit} = useRecipeStore()
+  const { addNotification } = useNotificationsStore()
 
   async function setFridgeItem(recipe: any) {
     let model = recipe;
     model['fridge'] = !recipe['fridge']
     edit(model)
-    const response = await fetch('/api/recipe', {method: 'GET'});
-    console.log(response);
+    addNotification('Receta actualizada')
   }
 
   return (
